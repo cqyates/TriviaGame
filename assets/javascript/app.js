@@ -74,12 +74,17 @@ var triviaQuestions = [
         image: '../images/vote_blue.jpg'
         }     
 ];
-    //hide #question-card at start.-Yayworks
-    $('#question-card').hide();
-    //hide #answer-card at start. Need to add code and make the card
+    $(document).ready(function() {
+//hide #question-card at start.
+$('#question-card').hide();
+$('#answer-card').hide();
+$('#submit').on("click", function(){
+    result();
+});
+
    
 
-    //This function needs to grab one question and it's associated multiple choices, then it needs to display in the question card box -Yayworks
+    //This function needs to grab one question and mcs, then it needs to display in the question card box
     function getQuestion() {
        var currentQuestion = triviaQuestions[questionIndex].question;
         $('#question').html(currentQuestion);
@@ -87,10 +92,26 @@ var triviaQuestions = [
         for( var i = 0; i < triviaQuestions[questionIndex].multipleChoice.length; i++) {
             console.log(triviaQuestions[questionIndex].multipleChoice[i]);
             $('#multiple-choice').append("<input type='radio' name='candidate' value='" + triviaQuestions[questionIndex].multipleChoice[i] + "'>" + triviaQuestions[questionIndex].multipleChoice[i] + "<br>")
+            }
         }
-        
-        
-    }
+
+    
+
+  	var result = function checkAnswer() {
+        if ($('input[name=candidate]:checked').val() == triviaQuestions[questionIndex].correctAnswer) {
+            correctAnswers++;
+            unansweredQuestions++;
+            $('#question-card').hide();
+            $('#answer-card').show();
+        } else { 
+            incorrectAnswers++;
+            unansweredQuestions++;
+            $('#question-card').hide();
+            $('#answer-card').show();
+        } 
+    } 
+
+
 
     //create an on click event that starts the quiz when you click the get started button -Yayworks
    $('#get-started').on("click", function(){
@@ -103,16 +124,8 @@ var triviaQuestions = [
 
    //create click event for the submit button
    $('#submit').on("click", function(){
-       //stop timer
-       //record user answer
-       //compare user answer to correctanswer (if/else statement).  
-       //show either correct or incorrect card with candidate picture, explanation and links
-       //get next question
+       result();
 
 
-
-
-   })
-    
-    
-  
+   });
+});
