@@ -9,7 +9,7 @@ var questionIndex = 0;
 var triviaQuestions = [
     
     {question: "Which 2020 candidate played football in college?",
-       multipleChoice: ["John Hickenlooper", "Joe Biden", "Julian Castro", "Corey Booker"],
+       multipleChoice: ["John Hickenlooper", "Joe Biden", "Julian Castro", "Cory Booker"],
        correctAnswer: 3,
        image: '../images/corybooker.jpg'
         },
@@ -34,7 +34,7 @@ var triviaQuestions = [
         image: '../images/hickenlooper.jpg'
         },
     {question: "Who has not served as a mayor?",
-        multipleChoice: ["Cory Booker", "John Hickenlooper", "Pete Buttigieg", "Jay Inslee",],
+        multipleChoice: ["Cory Booker", "John Hickenlooper", "Pete Buttigieg", "Jay Inslee"],
         correctAnswer: 3,
         image: '../images/jay-inslee.jpg'
         },
@@ -74,13 +74,12 @@ var triviaQuestions = [
         image: '../images/vote_blue.jpg'
         }     
 ];
-    //hide timer at start
+    //hide #question-card at start.-Yayworks
     $('#question-card').hide();
-    //console.log triviaQuestions array.
-    console.log(triviaQuestions);
-    //yay works!
+    //hide #answer-card at start. Need to add code and make the card
+   
 
-    //This function needs to grab one question and it's associated multiple choices, then it needs to display in the question card bo
+    //This function needs to grab one question and it's associated multiple choices, then it needs to display in the question card box -Yayworks
     function getQuestion() {
        var currentQuestion = triviaQuestions[questionIndex].question;
         $('#question').html(currentQuestion);
@@ -93,13 +92,26 @@ var triviaQuestions = [
         
     }
 
-    //create an on click event that starts the quiz when you click the get started button
+    //create an on click event that starts the quiz when you click the get started button -Yayworks
    $('#get-started').on("click", function(){
        $('#introduction').hide();
        $('#start-image').hide();
        $('#question-card').show();
        getQuestion();
      
+   });
+
+   //create click event for the submit button
+   $('#submit').on("click", function(){
+       //stop timer
+       //record user answer
+       //compare user answer to correctanswer (if/else statement).  
+       //show either correct or incorrect card with candidate picture, explanation and links
+       //get next question
+
+
+
+
    })
     
     

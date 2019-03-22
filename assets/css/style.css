@@ -4,19 +4,19 @@ body {
     font-size: 14pt;
 }
  /* Container needed to position the button. Adjust the width as needed */
- .container {
+.container {
     position: relative;
-    width: 50%;
+    width: 75%;
   }
   
   /* Make the image responsive */
-  .container img {
+.container img {
     width: 100%;
     height: auto;
   }
   
   /* Style the button and place it in the middle of the container/image */
-  .container .btn {
+.container .btn {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -31,7 +31,7 @@ body {
     border-radius: 5px;
   }
   
-  .container .btn:hover {
+.container .btn:hover {
     background-color: rgb(11, 25, 110);
   } 
 
@@ -42,13 +42,12 @@ body {
 }
 
 #question-card {
-      width: 600px;
       margin-left: 50px;
+      position: relative;
 }
 
 #submit {
-  position: relative;
   width: 250px;
-  margin-left: 50px;
+  margin-left: 35%;
   background-color: rgb(91, 143, 203);
 }
