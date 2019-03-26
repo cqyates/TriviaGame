@@ -91,6 +91,9 @@ function buildQuestionCard (){
 }
 
 //This Function Builds the Answer Card
+function buildAnswerCard (){
+    $()
+}
 
 
 
@@ -135,6 +138,8 @@ function buildQuestionCard (){
             unansweredQuestions--;
             Q++;
             $('#question-card').hide();
+            $('#question').empty();
+            $('#multiple-choice').empty();
             $('#answer-card').show();
             setTimeout(1000);
             resetQuestion();
