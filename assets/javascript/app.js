@@ -68,48 +68,77 @@ var triviaQuestions = [
 ];
 
 //set global variables
+
 var correctAnswers = 0;
 var incorrectAnswers = 0;
 var unansweredQuestions = 13;
-var questionIndex = 0;
-var intervalId;
-var number = 45;
+var Q = 0;
+
 
 $(document).ready(function() {
+
+//hide the question and answer cards at start
 $('#question-card').hide();
 $('#answer-card').hide();
-$('#submit').on("click", function(){
-    result();
-    });
+
+//This Function Builds the Question Card
+
+function buildQuestionCard (){
+    $('#question-card').show();
+    $('#question').html(currentQuestion);
 
 
-   
+}
+
+//This Function Builds the Answer Card
+
+
 
 //This function needs to grab one question and mcs, then it needs to display in the question card box
     function getQuestion() {
-       var currentQuestion = triviaQuestions[questionIndex].question;
-       $('#question-card').show();
-        $('#question').html(currentQuestion);
-        console.log(triviaQuestions[questionIndex].question);
-        for( var i = 0; i < triviaQuestions[questionIndex].multipleChoice.length; i++) {
-            console.log(triviaQuestions[questionIndex].multipleChoice[i]);
-            $('#multiple-choice').append("<input type='radio' name='candidate' value='" + triviaQuestions[questionIndex].multipleChoice[i] + "'>" + triviaQuestions[questionIndex].multipleChoice[i] + "<br>")
+        currentQuestion = triviaQuestions[Q].question;
+        console.log(triviaQuestions[Q].question);
+        for( var i = 0; i < triviaQuestions[Q].multipleChoice.length; i++) {
+            console.log(triviaQuestions[Q].multipleChoice[i]);
+            $('#multiple-choice').append("<input type='radio' name='candidate' value='" + triviaQuestions[Q].multipleChoice[i] + "'>" + triviaQuestions[Q].multipleChoice[i] + "<br>")
             }
+        buildQuestionCard();
      
     }
 
-    var result = function checkAnswer() {
-        if ($('input[name=candidate]:checked').val() === triviaQuestions[questionIndex].correctAnswer) {
+// This function works the same as the getQuestion.  Need some help here I think
+    function resetQuestion() {
+        currentQuestion = triviaQuestions[Q].question;
+        console.log(currentQuestion);
+        for( var i = 0; i < triviaQuestions[Q].multipleChoice.length; i++) {
+            console.log(triviaQuestions[Q].multipleChoice[i]);
+            $('#multiple-choice').append("<input type='radio' name='candidate' value='" + triviaQuestions[Q].multipleChoice[i] + "'>" + triviaQuestions[Q].multipleChoice[i] + "<br>")
+            }
+        buildQuestionCard();
+     
+
+    }
+
+    function checkAnswer() {
+        if ($('input[name=candidate]:checked').val() === triviaQuestions[Q].correctAnswer) {
             correctAnswers++;
             unansweredQuestions--;
+            Q++;
             $('#question-card').hide();
+            $('#question').empty();
+            $('#multiple-choice').empty();
             $('#answer-card').show();
-            
+            setTimeout(1000);
+            resetQuestion();
         } else { 
             incorrectAnswers++;
             unansweredQuestions--;
+            Q++;
             $('#question-card').hide();
             $('#answer-card').show();
+            setTimeout(1000);
+            resetQuestion();
+
             
         } 
     } 
@@ -118,15 +147,17 @@ $('#submit').on("click", function(){
 
 
 
-    //create an on click event that starts the quiz when you click the get started button -Yayworks
+  //My Event Listeners
    $('#get-started').on("click", function(){
        $('#introduction').hide();
        $('#start-image').hide();
        $('#question-card').show();
        getQuestion();
-    
-     
-   });
+    });
+
+   $('#submit').on("click", function(){
+    checkAnswer();
+    });
 
   
 });
