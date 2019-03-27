@@ -92,16 +92,15 @@ function buildQuestionCard (){
 
 function buildAnswerCard (){
     var candidateImage = $('<img>');
-    $('#answer-card').show();
+        $('#answer-card').show();
 
-    var imageUrl = triviaQuestions[Q].image;
+    var imageUrl = triviaQuestions[Q-1].image;
 
           //this puts the link and sourcse together
     candidateImage.attr("src", imageUrl);
+    candidateImage.addClass("picture");
     candidateImage.attr("alt", "candidate image");
-
-          //this shows the images before the one in front.
-          $("#images").append(candidateImage);
+    $("#images").html(candidateImage);
 }
 
 
@@ -134,24 +133,19 @@ function buildAnswerCard (){
             correctAnswers++;
             unansweredQuestions--;
             Q++;
-            buildAnswerCard();
             $('#question-card').hide();
             $('#question').empty();
             $('#multiple-choice').empty();
-            $('#answer-card').show();
-            setTimeout(1000);
-            resetQuestion();
+            buildAnswerCard();
         } else { 
             incorrectAnswers++;
             unansweredQuestions--;
             Q++;
-            buildAnswerCard();
             $('#question-card').hide();
             $('#question').empty();
             $('#multiple-choice').empty();
-            $('#answer-card').show();
-            setTimeout(1000);
-            resetQuestion();
+            buildAnswerCard();
+            
 
             
         } 

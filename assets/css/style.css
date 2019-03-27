@@ -51,3 +51,9 @@ body {
   margin-left: 35%;
   background-color: rgb(91, 143, 203);
 }
+
+.card .picture {
+  width: 300px;
+
+
+}
