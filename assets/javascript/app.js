@@ -85,6 +85,8 @@ var correctAnswers = 0;
 var incorrectAnswers = 0;
 var unansweredQuestions = 13;
 var Q = 0;
+var counter = 5;
+var intervalID;
 
 
 $(document).ready(function() {
@@ -93,7 +95,36 @@ $(document).ready(function() {
 $('#question-card').hide();
 $('#answer-card').hide();
 
-//This Function Builds the Question Card
+//timer function
+function countdown (){
+    clearInterval(intervalID);
+    counter = 5;
+    intervalID = setInterval(function() {
+        counter--;
+        if (counter === 0) { 
+            clearInterval(intervalID);
+            checkAnswer();
+        }    
+
+        
+    }, 1 * 1000);
+
+}
+
+function timer () {
+    clearInterval(intervalID);
+    counter = 5;
+    intervalID = setInterval(function() {
+        counter--;
+        if (counter === 0) { 
+            clearInterval(intervalID);
+            $('#question-card').show();
+            $('#answer-card').hide();
+            countdown();
+        }
+    }, 1 * 1000);
+}
+
 
 function buildQuestionCard (){
     $('#question-card').show();
@@ -106,7 +137,7 @@ function buildAnswerCard (){
     $("#answer-card").show();
     $("#question-card").hide();
     var candidateImage = $('<img>');
-    var imageUrl = triviaQuestions[Q-1].image;
+    var imageUrl = triviaQuestions[Q].image;
     candidateImage.attr("src", imageUrl);
     candidateImage.addClass("picture");
     candidateImage.attr("alt", "candidate image");
@@ -130,21 +161,25 @@ function buildAnswerCard (){
         if ($('input[name=candidate]:checked').val() === triviaQuestions[Q].correctAnswer) {
             correctAnswers++;
             unansweredQuestions--;
-            Q++;
-            $('#question').empty();
-            $('#multiple-choice').empty();
-            buildAnswerCard();
-            $('#question-card').hide();
+            advanceQuestion();
+           
         } else { 
             incorrectAnswers++;
             unansweredQuestions--;
-            Q++;
-            $('#question').empty();
-            $('#multiple-choice').empty();
-            buildAnswerCard(); 
-            $('#question-card').hide();
+            advanceQuestion();
+            
          } 
     } 
+
+    function advanceQuestion () {
+        timer();
+        $('#question').empty();
+        $('#multiple-choice').empty();
+        buildAnswerCard(); 
+        Q++;
+        getQuestion();
+        $('#question-card').hide();
+    }
 
 
 
@@ -156,10 +191,12 @@ function buildAnswerCard (){
        $('#start-image').hide();
        $('#question-card').show();
        getQuestion();
-    });
+       countdown();
+   });
 
    $('#submit').on("click", function(){
     checkAnswer();
+    clearInterval(intervalID);
     });
 
   
